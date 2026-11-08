@@ -57,6 +57,63 @@ const db = {
     },
 
     // ---------- HISTORIAL (PILA) ----------
+        // ---------- ÓRDENES ----------
+    // Devuelve las órdenes en orden de llegada (la más antigua primero)
+    async listarOrdenes() {
+        const { data, error } = await supabaseClient
+            .from("ordenes")
+            .select("*, equipos(codigo, tipo, marca, modelo), orden_servicios(cantidad, servicios(nombre))")
+            .order("created_at", { ascending: true });
+        if (error) throw error;
+        return data;
+    },
+
+    async crearOrden({ equipo, prioridad, notas, servicios }) {
+        // Costo = suma de cantidad x precio de cada servicio elegido
+        const costo = servicios.reduce((t, s) => t + s.cantidad * s.precio_unitario, 0);
+
+        const { data: orden, error } = await supabaseClient
+            .from("ordenes")
+            .insert({ equipo_id: equipo.id, prioridad, notas, costo })
+            .select()
+            .single();
+        if (error) throw error;
+
+        const filas = servicios.map(s => ({
+            orden_id: orden.id,
+            servicio_id: s.servicio_id,
+            cantidad: s.cantidad,
+            precio_unitario: s.precio_unitario
+        }));
+        const { error: e2 } = await supabaseClient.from("orden_servicios").insert(filas);
+        if (e2) {
+            await supabaseClient.from("ordenes").delete().eq("id", orden.id);  // deshacer
+            throw e2;
+        }
+
+        await supabaseClient.from("equipos").update({ estado: "Pendiente" }).eq("id", equipo.id);
+        await db.registrarHistorial("Crear orden", "orden", orden.id,
+            `Orden #${orden.id} para ${equipo.codigo} (costo $${costo.toFixed(2)})`);
+        return orden;
+    },
+
+    async cambiarEstadoOrden(orden, nuevoEstado) {
+        const { error } = await supabaseClient
+            .from("ordenes").update({ estado: nuevoEstado }).eq("id", orden.id);
+        if (error) throw error;
+
+        await supabaseClient.from("equipos").update({ estado: nuevoEstado }).eq("id", orden.equipo_id);
+        await db.registrarHistorial("Cambiar estado", "orden", orden.id,
+            `Orden #${orden.id}: ${orden.estado} → ${nuevoEstado}`);
+    },
+
+    async eliminarOrden(orden) {
+        const { error } = await supabaseClient.from("ordenes").delete().eq("id", orden.id);
+        if (error) throw error;   // orden_servicios se borra solo (ON DELETE CASCADE)
+
+        await supabaseClient.from("equipos").update({ estado: "Registrado" }).eq("id", orden.equipo_id);
+        await db.registrarHistorial("Eliminar", "orden", orden.id, `Se eliminó la orden #${orden.id}`);
+    },
         // ---------- CATÁLOGO DE SERVICIOS (ARRAY) ----------
     async listarServicios() {
         const { data, error } = await supabaseClient
