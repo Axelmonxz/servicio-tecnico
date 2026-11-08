@@ -1,0 +1,86 @@
+let pendientes = [];     // COLA: la primera es la que llegó antes (FIFO)
+let enReparacion = [];
+
+const tbodyCola = document.getElementById("tablaCola");
+const tbodyRep  = document.getElementById("tablaReparacion");
+const vacioCola = document.getElementById("vacioCola");
+const vacioRep  = document.getElementById("vacioRep");
+const wrapCola  = document.getElementById("wrapCola");
+const wrapRep   = document.getElementById("wrapRep");
+const btnAtender = document.getElementById("btnAtender");
+
+function nombreEquipo(o) {
+    const e = o.equipos;
+    return e ? `${e.codigo} · ${e.tipo} ${e.marca || ""} ${e.modelo || ""}`.trim() : "—";
+}
+
+function dibujarCola() {
+    tbodyCola.innerHTML = "";
+    vacioCola.classList.toggle("hidden", pendientes.length > 0);
+    wrapCola.classList.toggle("hidden", pendientes.length === 0);
+    btnAtender.disabled = pendientes.length === 0;
+
+    pendientes.forEach((o, i) => {
+        const tr = document.createElement("tr");
+        tr.appendChild(celda(i === 0 ? "1 (siguiente)" : String(i + 1)));
+        tr.appendChild(celda("#" + o.id));
+        tr.appendChild(celda(nombreEquipo(o)));
+        tr.appendChild(celda(o.prioridad));
+        tr.appendChild(celda("$" + Number(o.costo).toFixed(2)));
+        tr.appendChild(celda(formatearFecha(o.created_at)));
+        tbodyCola.appendChild(tr);
+    });
+}
+
+function dibujarReparacion() {
+    tbodyRep.innerHTML = "";
+    vacioRep.classList.toggle("hidden", enReparacion.length > 0);
+    wrapRep.classList.toggle("hidden", enReparacion.length === 0);
+
+    enReparacion.forEach(o => {
+        const tr = document.createElement("tr");
+        tr.appendChild(celda("#" + o.id));
+        tr.appendChild(celda(nombreEquipo(o)));
+        tr.appendChild(celda("$" + Number(o.costo).toFixed(2)));
+
+        const td = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.textContent = "Marcar terminado";
+        btn.addEventListener("click", () => cambiar(o, "Terminado"));
+        td.appendChild(btn);
+        tr.appendChild(td);
+
+        tbodyRep.appendChild(tr);
+    });
+}
+
+async function cargar() {
+    try {
+        const todas = await db.listarOrdenes();   // ya vienen de la más antigua a la más nueva
+        pendientes   = todas.filter(o => o.estado === "Pendiente");
+        enReparacion = todas.filter(o => o.estado === "En reparación");
+        dibujarCola();
+        dibujarReparacion();
+    } catch (e) {
+        console.error(e);
+        mostrarMensaje("No se pudo cargar la cola: " + e.message, true);
+    }
+}
+
+async function cambiar(orden, estado) {
+    try {
+        await db.cambiarEstadoOrden(orden, estado);
+        mostrarMensaje(`Orden #${orden.id}: ${estado}`);
+        cargar();
+    } catch (e) {
+        mostrarMensaje(e.message, true);
+    }
+}
+
+// DESENCOLAR: solo se puede atender al que está al frente de la cola
+btnAtender.addEventListener("click", () => {
+    if (pendientes.length === 0) return;
+    cambiar(pendientes[0], "En reparación");
+});
+
+cargar();
