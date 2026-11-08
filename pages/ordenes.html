@@ -55,18 +55,66 @@
                     <h2>Órdenes registradas</h2>
                     <p>Seguimiento de los servicios técnicos</p>
                 </div>
-                <button>+ Crear orden</button>
+                <button id="btnNuevaOrden">+ Crear orden</button>
             </div>
 
-            <div class="empty-state">
-                <div class="empty-icon">▤</div>
-                <h3>No hay órdenes registradas</h3>
-                <p>Las órdenes creadas aparecerán aquí.</p>
-            </div>
+            <div id="tablaWrap" class="table-wrap hidden" style="margin-top:20px">
+    <table>
+        <thead>
+            <tr>
+                <th>Orden</th><th>Equipo</th><th>Servicios</th><th>Prioridad</th>
+                <th>Costo</th><th>Estado</th><th>Fecha</th><th></th>
+            </tr>
+        </thead>
+        <tbody id="tablaOrdenes"></tbody>
+    </table>
+</div>
+
+<div class="empty-state" id="estadoVacio">
+    <div class="empty-icon">▤</div>
+    <h3>No hay órdenes registradas</h3>
+    <p>Las órdenes creadas aparecerán aquí.</p>
+</div>
         </section>
     </main>
+    <div id="modalOrden" class="modal-bg hidden">
+    <form id="formOrden" class="modal">
+        <h2>Crear orden de servicio</h2>
+
+        <div class="form-group">
+            <label for="equipo_id">Equipo</label>
+            <select id="equipo_id" required></select>
+        </div>
+
+        <div class="form-group">
+            <label for="prioridad">Prioridad</label>
+            <select id="prioridad" name="prioridad">
+                <option>Baja</option>
+                <option selected>Normal</option>
+                <option>Alta</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Servicios a realizar</label>
+            <div id="listaServicios" class="checklist"></div>
+            <div class="total-box"><span>Costo total</span><span id="totalOrden">$0.00</span></div>
+        </div>
+
+        <div class="form-group">
+            <label for="notas">Notas (opcional)</label>
+            <textarea id="notas" name="notas" placeholder="Observaciones del técnico"></textarea>
+        </div>
+
+        <div class="modal-actions">
+            <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+            <button type="submit">Crear orden</button>
+        </div>
+    </form>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/database.js"></script>
 <script src="../js/app.js"></script>
+    <script src="../js/ordenes.js"></script>
 </body>
 </html>
