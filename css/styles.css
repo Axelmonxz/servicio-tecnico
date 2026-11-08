@@ -209,10 +209,6 @@ button:hover {
     }
 }
 
-@media (max-width: 600px) {
-    .sidebar {
-        width: 190px;
-    }
 
     .main-content {
         margin-left: 190px;
@@ -278,3 +274,32 @@ input[type=checkbox] { width:auto; margin:0; }
 .total-box { display:flex; justify-content:space-between; font-weight:bold; margin-top:10px; font-size:16px; }
 .total-box span:last-child { color:#38bdf8; }
 .panel-gap { margin-top:25px; }
+/* ===== Adaptación a celular y tablet ===== */
+@media (max-width: 800px) {
+    body { flex-direction: column; }
+
+    /* La barra lateral pasa a ser una barra superior */
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+    .logo { margin-bottom: 15px; font-size: 24px; }
+    .menu-title, .sidebar-footer { display: none; }
+
+    nav { flex-direction: row; overflow-x: auto; gap: 6px; padding-bottom: 5px; }
+    nav a { white-space: nowrap; padding: 10px 12px; font-size: 13px; }
+
+    .main-content { margin-left: 0; width: 100%; padding: 18px; }
+
+    .topbar { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .panel-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+    .toast { left: 15px; right: 15px; bottom: 15px; }
+    .modal { padding: 18px; }
+}
