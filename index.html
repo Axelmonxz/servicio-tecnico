@@ -91,28 +91,30 @@
         <section class="content-panel">
 
             <div class="panel-header">
-                <div>
-                    <h2>Actividad del sistema</h2>
-                    <p>Resumen de las operaciones recientes</p>
-                </div>
+    <div>
+        <h2>Actividad del sistema</h2>
+        <p>Últimas 5 acciones registradas</p>
+    </div>
+    <button id="btnNuevoEquipo">+ Registrar equipo</button>
+</div>
 
                 <span class="status">Sistema activo</span>
             </div>
 
-            <div class="empty-state">
-                <div class="empty-icon">▣</div>
+           <div id="wrapActividad" class="table-wrap hidden" style="margin-top:20px">
+    <table>
+        <thead>
+            <tr><th>Acción</th><th>Detalle</th><th>Fecha</th></tr>
+        </thead>
+        <tbody id="tablaActividad"></tbody>
+    </table>
+</div>
 
-                <h3>Bienvenido a TechFix</h3>
-
-                <p>
-                    Todavía no hay equipos registrados.
-                    Comienza agregando un nuevo equipo.
-                </p>
-
-                <button id="btnNuevoEquipo">
-                    + Registrar equipo
-                </button>
-            </div>
+<div class="empty-state" id="vacioActividad">
+    <div class="empty-icon">▣</div>
+    <h3>Bienvenido a TechFix</h3>
+    <p>Todavía no hay actividad. Comienza registrando un equipo.</p>
+</div>
 
         </section>
 
