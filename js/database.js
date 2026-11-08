@@ -1,6 +1,6 @@
 const SUPABASE_URL = "https://vjuiosdotumyqwsmslvx.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_fJ2vLnDlVFaM-N_pIwlJPA_B2hI1MeP";
+const SUPABASE_KEY = "TU_PUBLISHABLE_KEY";
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -8,18 +8,22 @@ const supabaseClient = window.supabase.createClient(
 );
 
 console.log("TechFix conectado a Supabase");
+
 async function probarConexion() {
+
+    console.log("Probando consulta a equipos...");
+
     const { data, error } = await supabaseClient
         .from("equipos")
         .select("*");
 
     if (error) {
-        console.error("Error al consultar equipos:", error.message);
+        console.error("ERROR SUPABASE:", error);
         return;
     }
 
-    console.log("Conexión con la tabla equipos exitosa");
-    console.log("Equipos registrados:", data);
+    console.log("CONSULTA EXITOSA");
+    console.table(data);
 }
 
 probarConexion();
