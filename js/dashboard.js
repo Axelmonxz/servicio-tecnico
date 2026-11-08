@@ -20,4 +20,25 @@ async function cargarContadores() {
     }
 }
 
+async function cargarActividad() {
+    try {
+        const ultimas = await db.listarHistorial(5);   // los 5 elementos del tope de la pila
+        const tbody = document.getElementById("tablaActividad");
+        tbody.innerHTML = "";
+        document.getElementById("vacioActividad").classList.toggle("hidden", ultimas.length > 0);
+        document.getElementById("wrapActividad").classList.toggle("hidden", ultimas.length === 0);
+
+        ultimas.forEach(h => {
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(h.accion));
+            tr.appendChild(celda(h.detalle));
+            tr.appendChild(celda(formatearFecha(h.created_at)));
+            tbody.appendChild(tr);
+        });
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 cargarContadores();
+cargarActividad();
