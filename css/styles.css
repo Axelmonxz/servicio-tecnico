@@ -1,0 +1,244 @@
+/* Configuración general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    display: flex;
+}
+
+/* Barra lateral */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #111c30;
+    padding: 25px 18px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+.menu-title {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #94a3b8;
+    padding: 13px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+nav a:hover,
+nav a.active {
+    background: #1e3a5f;
+    color: #38bdf8;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.sidebar-footer span {
+    color: #38bdf8;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 250px;
+    padding: 35px;
+    width: calc(100% - 250px);
+}
+
+/* Encabezado */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.topbar h1 {
+    font-size: 26px;
+}
+
+.topbar p,
+.welcome p,
+.stat-card span,
+.panel-header p {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    background: #0284c7;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+/* Bienvenida */
+.welcome {
+    background: linear-gradient(110deg, #164e78, #172554);
+    padding: 28px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    margin-bottom: 10px;
+}
+
+/* Tarjetas */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: #1e293b;
+    padding: 22px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+}
+
+.stat-card p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.stat-card h2 {
+    font-size: 30px;
+    margin: 15px 0;
+    color: #38bdf8;
+}
+
+/* Panel de actividad */
+.content-panel {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status {
+    color: #4ade80;
+    font-size: 12px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 55px 15px;
+}
+
+.empty-icon {
+    font-size: 45px;
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: #94a3b8;
+    margin: 12px 0 22px;
+    font-size: 14px;
+}
+
+button {
+    background: #0284c7;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 900px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 190px;
+    }
+
+    .main-content {
+        margin-left: 190px;
+        width: calc(100% - 190px);
+        padding: 18px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+}
+```[cite: 1]
+
+---
+
+**Estructura de carpetas recomendada para que funcionen las rutas:**
+```text
+proyecto-techfix/
+├── index.html
+├── css/
+│   └── styles.css
+└── js/
+    └── app.js
