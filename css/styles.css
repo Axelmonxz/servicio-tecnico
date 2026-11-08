@@ -230,15 +230,43 @@ button:hover {
         flex-direction: column;
     }
 }
-```[cite: 1]
+/* ===== Tablas, formularios y modal ===== */
+.toolbar { display:flex; gap:12px; margin:20px 0 15px; }
+.toolbar input { flex:1; }
 
----
+input, select, textarea {
+    width: 100%;
+    background: #0f172a;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    border-radius: 7px;
+    padding: 11px 12px;
+    font-family: inherit;
+    font-size: 14px;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid #38bdf8; border-color: transparent; }
+textarea { resize: vertical; min-height: 80px; }
+label { display:block; font-size:13px; color:#94a3b8; margin-bottom:6px; }
 
-**Estructura de carpetas recomendada para que funcionen las rutas:**
-```text
-proyecto-techfix/
-├── index.html
-├── css/
-│   └── styles.css
-└── js/
-    └── app.js
+.table-wrap { overflow-x: auto; }
+table { width:100%; border-collapse: collapse; font-size:14px; }
+th { text-align:left; color:#94a3b8; font-size:12px; text-transform:uppercase; padding:10px 12px; border-bottom:1px solid #334155; }
+td { padding:12px; border-bottom:1px solid #263248; vertical-align: top; }
+tr:hover td { background:#223049; }
+
+.badge { background:#1e3a5f; color:#38bdf8; padding:4px 10px; border-radius:20px; font-size:12px; white-space:nowrap; }
+.btn-danger { background:#b91c1c; padding:7px 12px; font-size:12px; }
+.btn-danger:hover { background:#991b1b; }
+.btn-secondary { background:#334155; }
+.btn-secondary:hover { background:#475569; }
+
+.hidden { display:none !important; }
+
+.modal-bg { position:fixed; inset:0; background:rgba(0,0,0,.6); display:grid; place-items:center; z-index:10; padding:15px; }
+.modal { background:#1e293b; border:1px solid #334155; border-radius:12px; padding:25px; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; }
+.modal h2 { margin-bottom:18px; }
+.form-group { margin-bottom:15px; }
+.modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:20px; }
+
+.toast { position:fixed; bottom:25px; right:25px; background:#166534; color:white; padding:12px 20px; border-radius:8px; z-index:20; font-size:14px; }
+.toast.error { background:#b91c1c; }
