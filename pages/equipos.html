@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFix | Equipos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2 class="logo">Tech<span>Fix</span></h2>
+        <p class="menu-title">MENÚ PRINCIPAL</p>
+
+        <nav>
+            <a href="../index.html">▦ Dashboard</a>
+            <a href="equipos.html" class="active">▣ Equipos</a>
+            <a href="ordenes.html">▤ Órdenes de servicio</a>
+            <a href="cola.html">☷ Cola de reparaciones</a>
+            <a href="catalogo.html">⚙ Catálogo de reparaciones</a>
+            <a href="historial.html">◷ Historial de acciones</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema de Servicio Técnico
+            <br>
+            <span>TechFix v1.0</span>
+        </div>
+    </div>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Gestión de equipos</h1>
+                <p>Registra y administra los equipos de los clientes</p>
+            </div>
+
+            <div class="user">
+                <div class="avatar">A</div>
+                <span>Administrador</span>
+            </div>
+        </header>
+
+        <section class="welcome">
+            <h2>Inventario de equipos</h2>
+            <p>
+                Consulta, registra, modifica y elimina
+                los equipos ingresados al servicio técnico.
+            </p>
+        </section>
+
+        <section class="content-panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Equipos registrados</h2>
+                    <p>Listado general de equipos</p>
+                </div>
+
+                <button id="btnNuevoEquipo">
+                    + Registrar equipo
+                </button>
+            </div>
+
+            <div class="empty-state">
+                <div class="empty-icon">▣</div>
+                <h3>No hay equipos registrados</h3>
+                <p>
+                    Cuando registres un equipo,
+                    aparecerá en esta sección.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
