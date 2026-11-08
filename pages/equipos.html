@@ -63,18 +63,64 @@
                 </button>
             </div>
 
-            <div class="empty-state">
-                <div class="empty-icon">▣</div>
-                <h3>No hay equipos registrados</h3>
-                <p>
-                    Cuando registres un equipo,
-                    aparecerá en esta sección.
-                </p>
-            </div>
+            <div class="toolbar">
+    <input type="text" id="buscador" placeholder="Buscar por código, tipo, marca, modelo o problema...">
+</div>
+
+<div id="tablaWrap" class="table-wrap hidden">
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th><th>Tipo</th><th>Marca / Modelo</th>
+                <th>Problema</th><th>Estado</th><th>Registro</th><th></th>
+            </tr>
+        </thead>
+        <tbody id="tablaEquipos"></tbody>
+    </table>
+</div>
+
+<div class="empty-state" id="estadoVacio">
+    <div class="empty-icon">▣</div>
+    <h3>No hay equipos registrados</h3>
+    <p>Cuando registres un equipo, aparecerá en esta sección.</p>
+</div>
         </section>
 
     </main>
+<div id="modalEquipo" class="modal-bg hidden">
+    <form id="formEquipo" class="modal">
+        <h2>Registrar equipo</h2>
 
+        <div class="form-group">
+            <label for="tipo">Tipo de equipo</label>
+            <select id="tipo" name="tipo" required>
+                <option>Laptop</option>
+                <option>PC de escritorio</option>
+                <option>Impresora</option>
+                <option>Celular</option>
+                <option>Tablet</option>
+                <option>Otro</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="marca">Marca</label>
+            <input id="marca" name="marca" type="text" placeholder="Ej. HP, Dell, Lenovo">
+        </div>
+        <div class="form-group">
+            <label for="modelo">Modelo</label>
+            <input id="modelo" name="modelo" type="text" placeholder="Ej. Pavilion 15">
+        </div>
+        <div class="form-group">
+            <label for="descripcion_problema">Descripción del problema</label>
+            <textarea id="descripcion_problema" name="descripcion_problema" required placeholder="¿Qué falla presenta el equipo?"></textarea>
+        </div>
+
+        <div class="modal-actions">
+            <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+            <button type="submit">Guardar equipo</button>
+        </div>
+    </form>
+</div>
         <!-- Librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -83,6 +129,6 @@
 
     <!-- Código principal de TechFix -->
     <script src="../js/app.js"></script>
-
+<script src="../js/equipos.js"></script>
 </body>
 </html>
