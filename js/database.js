@@ -164,7 +164,32 @@ const db = {
             .insert({ accion, entidad, entidad_id, detalle });
         if (error) console.error("No se pudo guardar en historial:", error);
     },
+    // Devuelve el historial con la acción más reciente primero (el tope de la pila)
+    async listarHistorial(limite = 100) {
+        const { data, error } = await supabaseClient
+            .from("historial")
+            .select("*")
+            .order("id", { ascending: false })
+            .limit(limite);
+        if (error) throw error;
+        return data;
+    },
 
+    // POP: quita la acción que está en el tope
+    async quitarUltimoHistorial() {
+        const { data, error } = await supabaseClient
+            .from("historial")
+            .select("id")
+            .order("id", { ascending: false })
+            .limit(1);
+        if (error) throw error;
+        if (data.length === 0) return false;
+
+        const { error: e2 } = await supabaseClient
+            .from("historial").delete().eq("id", data[0].id);
+        if (e2) throw e2;
+        return true;
+    },
     // ---------- CONTADORES DEL DASHBOARD ----------
     async contar(tabla, filtroEstado) {
         let q = supabaseClient.from(tabla).select("*", { count: "exact", head: true });
