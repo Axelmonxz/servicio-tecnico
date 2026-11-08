@@ -50,22 +50,34 @@
         </section>
 
         <section class="content-panel">
-            <div class="panel-header">
-                <div>
-                    <h2>Registro de actividad</h2>
-                    <p>Acciones realizadas por los usuarios</p>
-                </div>
-            </div>
+           <div class="panel-header">
+    <div>
+        <h2>Registro de actividad</h2>
+        <p>Acciones realizadas por los usuarios</p>
+    </div>
+    <button id="btnPop" class="btn-secondary">Quitar última acción (pop)</button>
+</div>
+            <p id="contador" style="color:#94a3b8; font-size:13px; margin-top:15px"></p>
 
-            <div class="empty-state">
-                <div class="empty-icon">◷</div>
-                <h3>Sin movimientos registrados</h3>
-                <p>Las acciones del sistema aparecerán aquí.</p>
-            </div>
+<div id="tablaWrap" class="table-wrap hidden" style="margin-top:10px">
+    <table>
+        <thead>
+            <tr><th>Posición</th><th>Acción</th><th>Entidad</th><th>Detalle</th><th>Fecha</th></tr>
+        </thead>
+        <tbody id="tablaHistorial"></tbody>
+    </table>
+</div>
+
+<div class="empty-state" id="estadoVacio">
+    <div class="empty-icon">◷</div>
+    <h3>Sin movimientos registrados</h3>
+    <p>Las acciones del sistema aparecerán aquí.</p>
+</div>
         </section>
     </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/database.js"></script>
 <script src="../js/app.js"></script>
+    <script src="../js/historial.js"></script>
 </body>
 </html>
