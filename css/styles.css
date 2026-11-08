@@ -270,3 +270,11 @@ tr:hover td { background:#223049; }
 
 .toast { position:fixed; bottom:25px; right:25px; background:#166534; color:white; padding:12px 20px; border-radius:8px; z-index:20; font-size:14px; }
 .toast.error { background:#b91c1c; }
+
+input[type=checkbox] { width:auto; margin:0; }
+.check-row { display:flex; align-items:center; gap:8px; padding:6px 0; margin:0; color:#e2e8f0; font-size:14px; cursor:pointer; }
+.check-row .precio { margin-left:auto; color:#38bdf8; }
+.checklist { max-height:180px; overflow-y:auto; background:#0f172a; border:1px solid #334155; border-radius:7px; padding:6px 12px; }
+.total-box { display:flex; justify-content:space-between; font-weight:bold; margin-top:10px; font-size:16px; }
+.total-box span:last-child { color:#38bdf8; }
+.panel-gap { margin-top:25px; }
