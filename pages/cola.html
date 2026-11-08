@@ -50,22 +50,56 @@
         </section>
 
         <section class="content-panel">
-            <div class="panel-header">
-                <div>
-                    <h2>Equipos en espera</h2>
-                    <p>Orden de atención FIFO</p>
-                </div>
-            </div>
+    <div class="panel-header">
+        <div>
+            <h2>Equipos en espera</h2>
+            <p>Orden de atención FIFO: el primero en llegar es el primero en atenderse</p>
+        </div>
+        <button id="btnAtender">Atender siguiente</button>
+    </div>
 
-            <div class="empty-state">
-                <div class="empty-icon">☷</div>
-                <h3>La cola está vacía</h3>
-                <p>Los equipos pendientes aparecerán aquí.</p>
-            </div>
-        </section>
+    <div id="wrapCola" class="table-wrap hidden" style="margin-top:20px">
+        <table>
+            <thead>
+                <tr><th>Turno</th><th>Orden</th><th>Equipo</th><th>Prioridad</th><th>Costo</th><th>Llegada</th></tr>
+            </thead>
+            <tbody id="tablaCola"></tbody>
+        </table>
+    </div>
+
+    <div class="empty-state" id="vacioCola">
+        <div class="empty-icon">☷</div>
+        <h3>La cola está vacía</h3>
+        <p>Los equipos pendientes aparecerán aquí.</p>
+    </div>
+</section>
+
+<section class="content-panel panel-gap">
+    <div class="panel-header">
+        <div>
+            <h2>En reparación</h2>
+            <p>Trabajos que ya salieron de la cola</p>
+        </div>
+    </div>
+
+    <div id="wrapRep" class="table-wrap hidden" style="margin-top:20px">
+        <table>
+            <thead>
+                <tr><th>Orden</th><th>Equipo</th><th>Costo</th><th></th></tr>
+            </thead>
+            <tbody id="tablaReparacion"></tbody>
+        </table>
+    </div>
+
+    <div class="empty-state" id="vacioRep">
+        <h3>Ningún equipo en reparación</h3>
+        <p>Usa "Atender siguiente" para comenzar.</p>
+    </div>
+</section>
     </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../js/database.js"></script>
 <script src="../js/app.js"></script>
+    <script src="../js/cola.js"></script>
 </body>
 </html>
