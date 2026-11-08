@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TechFix | Servicio Técnico</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <h2 class="logo">Tech<span>Fix</span></h2>
+
+        <p class="menu-title">MENÚ PRINCIPAL</p>
+
+        <nav>
+            <a href="#" class="active">▦ Dashboard</a>
+            <a href="#">▣ Equipos</a>
+            <a href="#">▤ Órdenes de servicio</a>
+            <a href="#">☷ Cola de reparaciones</a>
+            <a href="#">⚙ Catálogo de reparaciones</a>
+            <a href="#">◷ Historial de acciones</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema de Servicio Técnico
+            <br>
+            <span>TechFix v1.0</span>
+        </div>
+
+    </div>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Panel principal</h1>
+                <p>Bienvenido al sistema de gestión TechFix</p>
+            </div>
+
+            <div class="user">
+                <div class="avatar">A</div>
+                <span>Administrador</span>
+            </div>
+        </header>
+
+
+        <section class="welcome">
+            <h2>Control de servicio técnico</h2>
+            <p>
+                Administra los equipos, órdenes de servicio
+                y procesos de reparación desde un solo lugar.
+            </p>
+        </section>
+
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <p>Equipos registrados</p>
+                <h2 id="totalEquipos">0</h2>
+                <span>Inventario de equipos</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Órdenes pendientes</p>
+                <h2 id="totalPendientes">0</h2>
+                <span>En espera de atención</span>
+            </div>
+
+            <div class="stat-card">
+                <p>En reparación</p>
+                <h2 id="totalReparacion">0</h2>
+                <span>Trabajos en proceso</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Trabajos terminados</p>
+                <h2 id="totalTerminados">0</h2>
+                <span>Reparaciones finalizadas</span>
+            </div>
+
+        </section>
+
+
+        <section class="content-panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Actividad del sistema</h2>
+                    <p>Resumen de las operaciones recientes</p>
+                </div>
+
+                <span class="status">Sistema activo</span>
+            </div>
+
+            <div class="empty-state">
+                <div class="empty-icon">▣</div>
+
+                <h3>Bienvenido a TechFix</h3>
+
+                <p>
+                    Todavía no hay equipos registrados.
+                    Comienza agregando un nuevo equipo.
+                </p>
+
+                <button id="btnNuevoEquipo">
+                    + Registrar equipo
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
