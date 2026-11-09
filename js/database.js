@@ -12,7 +12,7 @@ const db = {
         const { data, error } = await supabaseClient
             .from("equipos")
             .select("*")
-            .order("created_at", { ascending: false });
+                        .order("codigo", { ascending: true });
         if (error) throw error;
         return data;
     },
