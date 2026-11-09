@@ -250,7 +250,7 @@ input[type=checkbox] { width:auto; margin:0; }
 .total-box { display:flex; justify-content:space-between; font-weight:bold; margin-top:10px; font-size:16px; }
 .total-box span:last-child { color:#38bdf8; }
 .panel-gap { margin-top:25px; }
-
+.info-box { background:#0f172a; border:1px solid #334155; border-radius:7px; padding:11px 12px; font-size:14px; color:#e2e8f0; min-height:42px; }
 /* ===== Adaptación a pantallas pequeñas (siempre al final) ===== */
 @media (max-width: 900px) {
     .stats {
