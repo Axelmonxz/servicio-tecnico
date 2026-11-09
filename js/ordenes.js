@@ -18,6 +18,10 @@ function calcularTotal() {
     lista.querySelectorAll("input:checked").forEach(c => total += parseFloat(c.dataset.precio));
     document.getElementById("totalOrden").textContent = "$" + total.toFixed(2);
 }
+function mostrarProblema() {
+    const eq = equiposLibres.find(e => e.id === Number(selEquipo.value));
+    document.getElementById("problemaEquipo").textContent = eq ? eq.descripcion_problema : "—";
+}
 
 async function abrirModal() {
     try {
@@ -44,7 +48,7 @@ async function abrirModal() {
             op.textContent = `${e.codigo} - ${e.tipo} ${e.marca || ""} ${e.modelo || ""}`.trim();
             selEquipo.appendChild(op);
         });
-
+ mostrarProblema();
         lista.innerHTML = "";
         activos.forEach(s => {
             const fila = document.createElement("label");
@@ -191,5 +195,5 @@ formulario.addEventListener("submit", async (ev) => {
 document.getElementById("btnNuevaOrden").addEventListener("click", abrirModal);
 document.getElementById("btnCancelar").addEventListener("click", cerrarModal);
 modal.addEventListener("click", (e) => { if (e.target === modal) cerrarModal(); });
-
+selEquipo.addEventListener("change", mostrarProblema);
 cargarOrdenes();
