@@ -10,6 +10,7 @@ const wrapRep   = document.getElementById("wrapRep");
 const btnAtender = document.getElementById("btnAtender");
 
 function nombreEquipo(o) {
+    if (o.equipo_nombre) return o.equipo_nombre;
     const e = o.equipos;
     return e ? `${e.codigo} · ${e.tipo} ${e.marca || ""} ${e.modelo || ""}`.trim() : "—";
 }
