@@ -78,9 +78,12 @@ const db = {
         // Costo = suma de cantidad x precio de cada servicio elegido
         const costo = servicios.reduce((t, s) => t + s.cantidad * s.precio_unitario, 0);
 
+                const equipo_nombre = `${equipo.codigo} · ${equipo.tipo} ${equipo.marca || ""} ${equipo.modelo || ""}`
+            .replace(/\s+/g, " ").trim();
+
         const { data: orden, error } = await supabaseClient
             .from("ordenes")
-            .insert({ equipo_id: equipo.id, prioridad, notas, costo })
+            .insert({ equipo_id: equipo.id, equipo_nombre, prioridad, notas, costo })
             .select()
             .single();
         if (error) throw error;
