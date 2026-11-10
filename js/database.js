@@ -45,15 +45,21 @@ const db = {
         throw new Error("No se pudo generar un código único");
     },
 
-    async eliminarEquipo(equipo) {
-        const { error } = await supabaseClient.from("equipos").delete().eq("id", equipo.id);
-        if (error) {
-            if (error.code === "23503") {
-                throw new Error("Este equipo tiene órdenes de servicio; elimina primero sus órdenes.");
-            }
-            throw error;
+        async eliminarEquipo(equipo) {
+        if (equipo.estado === "Pendiente" || equipo.estado === "En reparación") {
+            throw new Error("Este equipo tiene una orden activa; termínala o elimínala primero.");
         }
+        const { error } = await supabaseClient.from("equipos").delete().eq("id", equipo.id);
+        if (error) throw error;
         await db.registrarHistorial("Eliminar", "equipo", equipo.id, `Se eliminó el equipo ${equipo.codigo}`);
+    },
+        // Elimina el equipo de una orden ya terminada (la orden se conserva)
+    async eliminarEquipoTerminado(orden) {
+        const codigo = orden.equipos ? orden.equipos.codigo : "";
+        const { error } = await supabaseClient.from("equipos").delete().eq("id", orden.equipo_id);
+        if (error) throw error;
+        await db.registrarHistorial("Eliminar", "equipo", orden.equipo_id,
+            `Se eliminó el equipo ${codigo} al terminar la orden #${orden.id}`);
     },
 
     // ---------- HISTORIAL (PILA) ----------
