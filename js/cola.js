@@ -70,13 +70,53 @@ async function cargar() {
 async function cambiar(orden, estado) {
     try {
         await db.cambiarEstadoOrden(orden, estado);
-        mostrarMensaje(`Orden #${orden.id}: ${estado}`);
-        cargar();
+        await cargar();
+        if (estado === "Terminado" && orden.equipo_id) {
+            ofrecerEliminarEquipo(orden);
+        } else {
+            mostrarMensaje(`Orden #${orden.id}: ${estado}`);
+        }
     } catch (e) {
         mostrarMensaje(e.message, true);
     }
 }
+// Aviso temporal: durante 8 segundos se puede eliminar el equipo de la lista de Equipos
+function ofrecerEliminarEquipo(orden) {
+    let segundos = 8;
 
+    const caja = document.createElement("div");
+    caja.className = "toast toast-accion";
+
+    const texto = document.createElement("span");
+    texto.textContent = `Orden #${orden.id} terminada.`;
+
+    const btn = document.createElement("button");
+    btn.className = "btn-danger";
+    const actualizar = () => { btn.textContent = `Eliminar equipo de Equipos (${segundos}s)`; };
+    actualizar();
+
+    const cerrar = () => { clearInterval(temporizador); caja.remove(); };
+
+    const temporizador = setInterval(() => {
+        segundos--;
+        if (segundos <= 0) cerrar();
+        else actualizar();
+    }, 1000);
+
+    btn.addEventListener("click", async () => {
+        cerrar();
+        try {
+            await db.eliminarEquipoTerminado(orden);
+            mostrarMensaje("Equipo eliminado de Equipos");
+            cargar();
+        } catch (e) {
+            mostrarMensaje(e.message, true);
+        }
+    });
+
+    caja.append(texto, btn);
+    document.body.appendChild(caja);
+}
 // DESENCOLAR: solo se puede atender al que está al frente de la cola
 btnAtender.addEventListener("click", () => {
     if (pendientes.length === 0) return;
