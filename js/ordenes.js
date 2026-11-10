@@ -90,8 +90,9 @@ function dibujarTabla() {
         const tr = document.createElement("tr");
         tr.appendChild(celda("#" + o.id));
 
-        const eq = o.equipos;
-        tr.appendChild(celda(eq ? `${eq.codigo} · ${eq.tipo} ${eq.marca || ""}`.trim() : "—"));
+                const eq = o.equipos;
+        tr.appendChild(celda(o.equipo_nombre ||
+            (eq ? `${eq.codigo} · ${eq.tipo} ${eq.marca || ""} ${eq.modelo || ""}`.trim() : "—")));
 
         const nombres = (o.orden_servicios || []).map(x => x.servicios.nombre).join(", ");
         tr.appendChild(celda(nombres));
